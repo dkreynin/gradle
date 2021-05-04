@@ -562,7 +562,10 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
 
     @Override
     public Convention getConvention() {
-        // TODO (donat) deprecate after all internal usages have been eliminated
+        DeprecationLogger.deprecateMethod(Project.class, "getConvention")
+            .replaceWith("getExtensions")
+            .willBeRemovedInGradle8()
+            .undocumented();
         return extensibleDynamicObject.getConvention();
     }
 
