@@ -565,7 +565,8 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
         DeprecationLogger.deprecateMethod(Project.class, "getConvention")
             .replaceWith("getExtensions")
             .willBeRemovedInGradle8()
-            .undocumented();
+            .withUpgradeGuideSection(7, "project_getconvention_deprecation")
+            .nagUser();
         return extensibleDynamicObject.getConvention();
     }
 
