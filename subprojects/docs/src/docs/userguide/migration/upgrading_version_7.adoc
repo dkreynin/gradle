@@ -280,4 +280,11 @@ link:{javadocPath}/org/gradle/plugins/ear/EarPluginConvention.html[EarPluginConv
 [[project_getconvention_deprecation]]
 === Deprecated `Project.getConvention()`
 
-`Project.getConvention()` is now deprecated
+Gradle plugins often need to declare configuration with default values that can be read and overridden by build scripts and other plugins.
+It used to be a common pattern in plugins to use `Project.getConvention()` to implement such feature.
+Now, Gradle has more refined functionality that supersedes conventions:
+ - Default values for configuring a custom task: use the Property API.
+ - Set up conventional values for all task of the same type: declare the values in a `configureEach()` statement.
+ - Declare DSL for a plugin: use extensions.
+
+`Project.getConvention()` is now deprecated and scheduled for removal in Gradle 8.0.
