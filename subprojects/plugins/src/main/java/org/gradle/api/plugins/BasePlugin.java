@@ -22,6 +22,7 @@ import org.gradle.api.artifacts.ConfigurationContainer;
 import org.gradle.api.artifacts.Dependency;
 import org.gradle.api.internal.plugins.BuildConfigurationRule;
 import org.gradle.api.internal.plugins.DefaultArtifactPublicationSet;
+import org.gradle.api.internal.project.DefaultProject;
 import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.plugins.internal.DefaultBasePluginConvention;
 import org.gradle.api.plugins.internal.DefaultBasePluginExtension;
@@ -47,7 +48,7 @@ public class BasePlugin implements Plugin<Project> {
         BasePluginExtension baseExtension = project.getExtensions().create(BasePluginExtension.class, "base", DefaultBasePluginExtension.class, project);
         BasePluginConvention convention = new DefaultBasePluginConvention(baseExtension);
 
-        project.getConvention().getPlugins().put("base", convention);
+        ((DefaultProject)project).getInternalConvention().getPlugins().put("base", convention);
 
         configureExtension(project, baseExtension);
         configureBuildConfigurationRule(project);

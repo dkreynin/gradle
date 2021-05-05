@@ -567,6 +567,10 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
             .willBeRemovedInGradle8()
             .withUpgradeGuideSection(7, "project_getconvention_deprecation")
             .nagUser();
+        return getInternalConvention();
+    }
+
+    public Convention getInternalConvention() {
         return extensibleDynamicObject.getConvention();
     }
 
@@ -1370,7 +1374,7 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
 
     @Override
     public ExtensionContainerInternal getExtensions() {
-        return (ExtensionContainerInternal) getConvention();
+        return (ExtensionContainerInternal) getInternalConvention();
     }
 
     // Not part of the public API

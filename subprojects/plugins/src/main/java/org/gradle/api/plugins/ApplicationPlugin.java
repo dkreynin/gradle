@@ -27,6 +27,7 @@ import org.gradle.api.distribution.DistributionContainer;
 import org.gradle.api.distribution.plugins.DistributionPlugin;
 import org.gradle.api.file.CopySpec;
 import org.gradle.api.file.FileCollection;
+import org.gradle.api.internal.project.DefaultProject;
 import org.gradle.api.plugins.internal.DefaultApplicationPluginConvention;
 import org.gradle.api.plugins.internal.DefaultJavaApplication;
 import org.gradle.api.provider.Provider;
@@ -139,7 +140,7 @@ public class ApplicationPlugin implements Plugin<Project> {
     private ApplicationPluginConvention addConvention(Project project) {
         ApplicationPluginConvention pluginConvention = new DefaultApplicationPluginConvention(project);
         pluginConvention.setApplicationName(project.getName());
-        project.getConvention().getPlugins().put("application", pluginConvention);
+        ((DefaultProject)project).getInternalConvention().getPlugins().put("application", pluginConvention);
         return pluginConvention;
     }
 

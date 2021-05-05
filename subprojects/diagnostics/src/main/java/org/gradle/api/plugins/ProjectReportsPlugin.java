@@ -17,6 +17,7 @@ package org.gradle.api.plugins;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.internal.project.DefaultProject;
 import org.gradle.api.reporting.dependencies.HtmlDependencyReportTask;
 import org.gradle.api.tasks.diagnostics.DependencyReportTask;
 import org.gradle.api.tasks.diagnostics.PropertyReportTask;
@@ -40,7 +41,7 @@ public class ProjectReportsPlugin implements Plugin<Project> {
         project.getPluginManager().apply(ReportingBasePlugin.class);
         @SuppressWarnings("deprecation")
         final ProjectReportsPluginConvention convention = new org.gradle.api.plugins.internal.DefaultProjectReportsPluginConvention(project);
-        project.getConvention().getPlugins().put("projectReports", convention);
+        ((DefaultProject)project).getInternalConvention().getPlugins().put("projectReports", convention);
 
         project.getTasks().register(TASK_REPORT, TaskReportTask.class, taskReportTask -> {
             taskReportTask.getProjectReportDirectory().convention(project.getLayout().dir(project.provider(() -> convention.getProjectReportDir())));
