@@ -562,8 +562,8 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
 
     @Override
     public Convention getConvention() {
-        DeprecationLogger.deprecateMethod(Project.class, "getConvention")
-            .replaceWith("getExtensions")
+        DeprecationLogger.deprecateMethod(Project.class, "getConvention()")
+            .replaceWith("Project.getExtensions()")
             .willBeRemovedInGradle8()
             .withUpgradeGuideSection(7, "project_getconvention_deprecation")
             .nagUser();
