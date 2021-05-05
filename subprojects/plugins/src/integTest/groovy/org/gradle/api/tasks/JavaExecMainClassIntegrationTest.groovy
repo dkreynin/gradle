@@ -88,6 +88,7 @@ class JavaExecMainClassIntegrationTest extends AbstractIntegrationSpec {
         def originalMain = writeMainClass 'Main', 'it works!'
 
         when:
+        executer.expectDocumentedDeprecationWarning("The Project.getConvention() method has been deprecated. This is scheduled to be removed in Gradle 8.0. Please use the Project.getExtensions() method instead. Consult the upgrading guide for further information: https://docs.gradle.org/current/userguide/upgrading_version_7.html#project_getconvention_deprecation")
         succeeds 'run', '--configuration-cache'
 
         then:
