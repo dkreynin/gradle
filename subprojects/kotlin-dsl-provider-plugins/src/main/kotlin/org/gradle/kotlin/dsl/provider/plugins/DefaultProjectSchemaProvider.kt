@@ -22,7 +22,7 @@ import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.api.internal.project.DefaultProject
+import org.gradle.api.internal.DynamicObjectAware
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.reflect.HasPublicType
 import org.gradle.api.reflect.TypeOf
@@ -30,6 +30,7 @@ import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.internal.deprecation.DeprecatableConfiguration
+import org.gradle.internal.extensibility.ExtensibleDynamicObject
 import org.gradle.kotlin.dsl.accessors.ConfigurationEntry
 import org.gradle.kotlin.dsl.accessors.ProjectSchema
 import org.gradle.kotlin.dsl.accessors.ProjectSchemaEntry
@@ -80,9 +81,9 @@ fun targetSchemaFor(target: Any, targetType: TypeOf<*>): TargetTypedSchema {
             }
         }
         if (target is Project) {
-            accessibleConventionsSchema((target as DefaultProject).internalConvention.plugins).forEach { (name, type) ->
+            accessibleConventionsSchema(((target as DynamicObjectAware).asDynamicObject as ExtensibleDynamicObject).convention.plugins).forEach { (name, type) ->
                 conventions.add(ProjectSchemaEntry(targetType, name, type))
-                collectSchemaOf(target.internalConvention.plugins[name]!!, type)
+                collectSchemaOf(((target as DynamicObjectAware).asDynamicObject as ExtensibleDynamicObject).convention.plugins[name]!!, type)
             }
             accessibleContainerSchema(target.tasks.collectionSchema).forEach { schema ->
                 tasks.add(ProjectSchemaEntry(typeOfTaskContainer, schema.name, schema.publicType))
