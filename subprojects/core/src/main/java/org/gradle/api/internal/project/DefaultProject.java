@@ -124,10 +124,10 @@ import org.gradle.normalization.InputNormalizationHandler;
 import org.gradle.process.ExecResult;
 import org.gradle.process.ExecSpec;
 import org.gradle.process.JavaExecSpec;
-import org.gradle.util.internal.ClosureBackedAction;
 import org.gradle.util.Configurable;
-import org.gradle.util.internal.ConfigureUtil;
 import org.gradle.util.Path;
+import org.gradle.util.internal.ClosureBackedAction;
+import org.gradle.util.internal.ConfigureUtil;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -567,10 +567,6 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
             .willBeRemovedInGradle8()
             .withUpgradeGuideSection(7, "project_getconvention_deprecation")
             .nagUser();
-        return getInternalConvention();
-    }
-
-    public Convention getInternalConvention() {
         return extensibleDynamicObject.getConvention();
     }
 
@@ -1374,7 +1370,7 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
 
     @Override
     public ExtensionContainerInternal getExtensions() {
-        return (ExtensionContainerInternal) getInternalConvention();
+        return (ExtensionContainerInternal) extensibleDynamicObject.getConvention();
     }
 
     // Not part of the public API
