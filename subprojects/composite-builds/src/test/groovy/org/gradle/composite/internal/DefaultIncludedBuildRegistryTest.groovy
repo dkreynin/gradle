@@ -57,7 +57,7 @@ class DefaultIncludedBuildRegistryTest extends Specification {
     }
     def gradleLauncherFactory = Mock(BuildLifecycleControllerFactory)
     def buildTree = Mock(BuildTreeController)
-    def factory = new BuildStateFactory(buildTree, gradleLauncherFactory, listenerManager, Stub(GradleUserHomeScopeServiceRegistry), Stub(CrossBuildSessionState), Stub(BuildCancellationToken))
+    def factory = new BuildStateFactory(buildTree, gradleLauncherFactory, listenerManager, Stub(GradleUserHomeScopeServiceRegistry), Stub(CrossBuildSessionState), Stub(BuildCancellationToken), projectStateRegistry, includedBuildControllers, workerLeaseService, exceptionAnalyser, buildOperationExecutor)
     def registry = new DefaultIncludedBuildRegistry(
         includedBuildFactory,
         Stub(IncludedBuildDependencySubstitutionsBuilder),
