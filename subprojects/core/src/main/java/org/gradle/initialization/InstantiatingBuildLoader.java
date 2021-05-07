@@ -16,12 +16,10 @@
 
 package org.gradle.initialization;
 
-import org.gradle.api.initialization.ProjectDescriptor;
 import org.gradle.api.internal.GradleInternal;
 import org.gradle.api.internal.SettingsInternal;
 import org.gradle.api.internal.initialization.ClassLoaderScope;
 import org.gradle.api.internal.project.ProjectInternal;
-import org.gradle.api.internal.project.ProjectRegistry;
 import org.gradle.api.internal.project.ProjectState;
 import org.gradle.internal.build.BuildState;
 
@@ -32,15 +30,9 @@ public class InstantiatingBuildLoader implements BuildLoader {
         attachDefaultProject(gradle, settings.getDefaultProject());
     }
 
-    private void attachDefaultProject(GradleInternal gradle, ProjectDescriptor defaultProjectDescriptor) {
-        ProjectRegistry<ProjectInternal> projectRegistry = gradle.getProjectRegistry();
-        String defaultProjectPath = defaultProjectDescriptor.getPath();
-        ProjectInternal defaultProject = projectRegistry.getProject(defaultProjectPath);
-        if (defaultProject == null) {
-            throw new IllegalStateException("Did not find project with path " + defaultProjectPath);
-        }
-
-        gradle.setDefaultProject(defaultProject);
+    private void attachDefaultProject(GradleInternal gradle, DefaultProjectDescriptor defaultProjectDescriptor) {
+        ProjectState defaultProject = gradle.getOwner().getProject(defaultProjectDescriptor.path());
+        gradle.setDefaultProject(defaultProject.getMutableModel());
     }
 
     private void createProjects(GradleInternal gradle, DefaultProjectDescriptor rootProjectDescriptor) {
