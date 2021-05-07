@@ -114,7 +114,6 @@ public class ProjectBuilderImpl {
         BuildTreeController buildTreeController = new BuildTreeController(buildSessionController.getServices(), modelServices);
         TestBuildScopeServices buildServices = new TestBuildScopeServices(buildTreeController.getServices(), homeDir, startParameter);
         TestRootBuild build = new TestRootBuild(projectDir, buildServices);
-        buildServices.add(BuildState.class, build);
 
         buildServices.get(BuildStateRegistry.class).attachRootBuild(build);
 
@@ -217,8 +216,9 @@ public class ProjectBuilderImpl {
         private final ProjectStateRegistry projectStateRegistry;
         private final GradleInternal gradle;
 
-        public TestRootBuild(File rootProjectDir, ServiceRegistry buildServices) {
+        public TestRootBuild(File rootProjectDir, TestBuildScopeServices buildServices) {
             this.rootProjectDir = rootProjectDir;
+            buildServices.add(BuildState.class, this);
             this.projectStateRegistry = buildServices.get(ProjectStateRegistry.class);
             this.gradle = buildServices.get(GradleInternal.class);
         }
