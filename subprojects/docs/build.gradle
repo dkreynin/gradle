@@ -36,22 +36,22 @@ dependencies {
     // generate Javadoc for the full Gradle distribution
     runtimeOnly project(":distributions-full")
 
-    userGuideTask 'xalan:xalan:2.7.1'
-    userGuideTask 'xerces:xercesImpl:2.11.0'
+    userGuideTask 'xalan:xalan:2.0.1'
+    userGuideTask 'xerces:xercesImpl:2.4.0'
     userGuideTask 'xhtmlrenderer:xhtmlrenderer:R8rc1'
-    userGuideTask 'itext:itext:2.0.8'
-    userGuideTask 'xslthl:xslthl:2.0.1'
+    userGuideTask 'itext:itext:1.0.8'
+    userGuideTask 'xslthl:xslthl:1.0.1'
 
-    userGuideStyleSheets 'docbook:docbook-xsl:1.75.2@zip'
+    userGuideStyleSheets 'docbook:docbook-xsl:1.60.2@zip'
 
-    jquery "jquery:jquery.min:3.5.1@js"
-    jquery "com.drewwilson.code:jquery.tipTip:1.3:minified@js"
+    jquery "jquery:jquery.min:3.0.1@js"
+    jquery "com.drewwilson.code:jquery.tipTip:1.0:minified@js"
 
     testImplementation project(":base-services")
     testImplementation project(":core")
     testImplementation libs.jsoup
-    testImplementation "org.gebish:geb-spock:2.2"
-    testImplementation 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.42.2'
+    testImplementation "org.gebish:geb-spock:1.2"
+    testImplementation 'org.seleniumhq.selenium:selenium-htmlunit-driver:1.42.2'
     testImplementation libs.commonsHttpclient
     testImplementation libs.httpmime
 
@@ -70,8 +70,8 @@ configurations.docsTestRuntimeClasspath {
 }
 
 asciidoctorj {
-    version = '2.4.2'
-    modules.pdf.version '1.5.4'
+    version = '1.4.2'
+    modules.pdf.version '1.0.4'
 }
 
 tasks.withType(AsciidoctorTask).configureEach { task ->
